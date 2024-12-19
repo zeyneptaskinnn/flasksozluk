@@ -17,3 +17,18 @@ def main():
 
 if __name__ == "__main__":
     main()
+    @app.route("/ara", methods=["POST"])
+def ara():
+    from flask import request
+
+    dictionary = {"elma": "apple", "armut": "pear", "muz": "banana"}
+    images = {"elma": "elma.jpg", "armut": "armut.jpg", "muz": "muz.jpg"}
+
+    kelime = request.form.get("kelime")
+    sonuc = dictionary.get(kelime)
+    resim = images.get(kelime)
+
+    if sonuc and resim:
+        return render_template("sonuc.html", kelime=kelime, anlam=sonuc, resim=resim)
+    else:
+        return "Kelime bulunamadı.", 404
